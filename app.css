@@ -397,6 +397,10 @@ overflow: hidden;
 
 }
 
+.abottom-img{
+  height: 0;
+}
+
 .dark{
   margin: .5em 3em;
   background-color:#404040;
@@ -426,6 +430,10 @@ overflow: hidden;
 .abottom.active{
   height: 100%;
  
+}
+
+.abottom-img.active{
+  height: 100%;
 }
 
 
