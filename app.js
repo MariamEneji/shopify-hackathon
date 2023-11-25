@@ -91,3 +91,58 @@ for (let i = 0; i < acc.length; i++) {
 
  
 
+let rolls = document.getElementsByClassName("roll");
+let progressSpan = document.getElementById("one");
+let progressBar = document.querySelector('.progress-bar');
+
+// Set initial style for the progress bar (invisible)
+progressBar.style.width = '0%';
+
+for (let i = 0; i < rolls.length; i++) {
+    rolls[i].addEventListener('click', function () {
+        // Show the progress bar after the first click
+        progressBar.style.width = 'auto';
+
+        // Check if the current step is incomplete
+        if (!rolls[i].classList.contains('completed')) {
+
+            // Mark the current step as completed
+            rolls[i].classList.add('completed');
+
+            // Update the progress bar and span based on completed steps
+            updateProgressBar();
+
+            // Collapse all steps
+            for (let j = 0; j < oneBottom.length; j++) {
+                oneBottom[j].classList.remove('active');
+            }
+
+            // Find the index of the next incomplete step
+            let nextIncompleteIndex = Array.from(rolls).findIndex((roll, index) => index > i && !roll.classList.contains('completed'));
+
+            // If a next incomplete step is found, expand it
+            if (nextIncompleteIndex !== -1) {
+                oneBottom[nextIncompleteIndex].classList.add('active');
+                oneBottomImg[nextIncompleteIndex].classList.add('active');
+            }
+        } else {
+            // If the current step is completed, toggle it back to incomplete
+            rolls[i].classList.remove('completed');
+
+            // Update the progress bar and span based on completed steps
+            updateProgressBar();
+        }
+    });
+}
+
+// Function to update the progress bar and span based on completed steps
+function updateProgressBar() {
+    let completedSteps = document.querySelectorAll('.roll.completed').length;
+    let totalSteps = rolls.length;
+
+    let progressPercentage = (completedSteps / totalSteps) * 100;
+    progressBar.style.width = progressPercentage + '%';
+
+    // Update the span with the completion progress
+    progressSpan.textContent = `${completedSteps} / ${totalSteps}`;
+}

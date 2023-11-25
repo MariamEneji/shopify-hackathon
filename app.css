@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-size: 14px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -316,11 +317,17 @@ gap: 8px;
 padding: .5em 1em ;
 }
 
-.progress-bar{
+.progress-container{
   width: 5rem;
   height: 8px;
   border:  1px solid #322f33;
   border-radius: 8px;
+}
+
+.progress-bar{
+ background-color: black;
+height: 100%;
+border-radius: 8px;
 }
 
 
@@ -370,9 +377,13 @@ overflow: hidden;
 
 .atop{
   display: flex;
-align-items: center;
+
 gap: 1em;
 
+}
+
+.atop p{
+  font-weight: 500;
 }
 
 
@@ -510,10 +521,11 @@ overflow: hidden;
       }
 
       .extend{
-        width: 90%;
+        width: 100%;
+        border-radius: 0;
       }
 
       .setupDiv{
-        width: 90%;
+        width: 100%;
       }
   }
