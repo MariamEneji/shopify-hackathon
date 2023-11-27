@@ -9,6 +9,7 @@ let alerts = document.getElementById("alerts");
 
 notif.addEventListener("click", function() {
     alerts.classList.toggle("hidden");
+    dcDropdown.classList.add("hidden")
 })
 
 // As a merchant, when I click on the name of my store Davii Collections, or on my profile image placeholder DC on the far right of the topbar menu, I see a menu with a list of menu items as specified by the Figma design. Clicking on this button again closes the menu. Finally, when I click on any of the menu items in this menu, I am redirected toadmin.shopify.com
@@ -20,11 +21,13 @@ let dcButton2 = document.getElementById("dcButton2");
 
 dcButton.addEventListener("click", function() {
     dcDropdown.classList.toggle("hidden")
+    alerts.classList.add("hidden");
     
 })
 
 dcButton2.addEventListener("click", function() {
     dcDropdown.classList.toggle("hidden")
+    alerts.classList.add("hidden");
 });
 
 
@@ -61,9 +64,9 @@ accordion1btn1.addEventListener("click", function() {
 
 // As a merchant, when I click on any of the 5 onboarding steps, it expands the panel, showing the content of the onboarding step, and closes the previously opened one. When I click on an opened onboarding step, nothing happens.
 
-let acc = document.getElementsByClassName("accordionItems");
+let acc = document.getElementsByClassName("open");
 let oneBottom = document.getElementsByClassName("abottom");
-let oneBottomImg = document.getElementsByClassName("abottom-img");
+
 
 for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener('click', function(){
@@ -73,11 +76,6 @@ for (let i = 0; i < acc.length; i++) {
         }
         oneBottom[i].classList.add('active')
 
-        for (let k = 0; k < oneBottomImg.length; k++) {
-            oneBottomImg[k].classList.remove('active');
-        }
-
-        oneBottomImg[i].classList.add('active')
     });
   }
 
@@ -100,6 +98,37 @@ progressBar.style.width = '0%';
 
 for (let i = 0; i < rolls.length; i++) {
     rolls[i].addEventListener('click', function () {
+
+
+        const incompleteIcon = rolls[i].querySelector("#incomplete");
+
+        const loaderIcon = rolls[i].querySelector("#loading");
+        const completeIcon = rolls[i].querySelector("#complet");
+
+
+           // Check the current state
+           const isCompleted = rolls[i].classList.contains('completed');
+
+
+           if (isCompleted) {
+            incompleteIcon.style.display = "block";
+            loaderIcon.style.display = "none";
+            completeIcon.style.display = "none";
+        } else {
+            incompleteIcon.style.display = "none";
+            loaderIcon.style.display = "block";
+            
+            // Simulate loading time
+            setTimeout(() => {
+                loaderIcon.style.display = "none";
+                completeIcon.style.display = "block";
+            }, 500);
+        }
+      
+  
+
+
+
         // Show the progress bar after the first click
         progressBar.style.width = 'auto';
 
@@ -110,7 +139,10 @@ for (let i = 0; i < rolls.length; i++) {
             rolls[i].classList.add('completed');
 
             // Update the progress bar and span based on completed steps
-            updateProgressBar();
+           
+                updateProgressBar();
+         
+           
 
             // Collapse all steps
             for (let j = 0; j < oneBottom.length; j++) {
@@ -128,9 +160,17 @@ for (let i = 0; i < rolls.length; i++) {
         } else {
             // If the current step is completed, toggle it back to incomplete
             rolls[i].classList.remove('completed');
-
+            
+  
+    
+  
+             
             // Update the progress bar and span based on completed steps
             updateProgressBar();
+
+
+
+          
         }
     });
 }
@@ -146,3 +186,5 @@ function updateProgressBar() {
     // Update the span with the completion progress
     progressSpan.textContent = `${completedSteps} / ${totalSteps}`;
 }
+
+
